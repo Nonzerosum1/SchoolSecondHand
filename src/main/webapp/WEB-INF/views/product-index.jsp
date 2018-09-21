@@ -35,18 +35,19 @@
         width:1200px;
         margin: 0 auto;
     }
-
-	.navbar #displayProductIndex {
+    /*官方商品展示区*/
+	/************************************************************************************************/
+	.navbar .pro-3 {
 		width:1200px;
         margin: 0 auto;
 	}
-	.navbar .container-fluid #displayProductIndex .col-md-3 li a .imgbox img {
+	.navbar .container-fluid .pro-3 .col-md-3 li a .imgbox img {
 		display: block;
 		margin: 0 auto;
 		position: relative;
 		left: 0;
 	}
-	.navbar .container-fluid #displayProductIndex .col-md-3 span.name {
+	.navbar .container-fluid .pro-3 .col-md-3 span.name {
 		width: 250px;
 		margin: 0 auto 18px;
 		white-space: nowrap;
@@ -54,21 +55,21 @@
 		text-overflow: ellipsis;
 		color: #333;
 	}
-	.navbar .container-fluid #displayProductIndex .col-md-3 span{
+	.navbar .container-fluid .pro-3 .col-md-3 span{
 		text-align: center;
 		display: block;
 		font-size: 14px;
 		color: #333;
 	}
-	.navbar .container-fluid #displayProductIndex .col-md-3 li {
+	.navbar .container-fluid .pro-3 .col-md-3 li {
 		list-style-type: none;
 		list-style-position: outside;
 		padding-top: 25px
 	}
-	.navbar .container-fluid #displayProductIndex .col-md-3 li a{
+	.navbar .container-fluid .pro-3 .col-md-3 li a{
 		text-decoration: none;
 	}
-	.navbar .container-fluid #displayProductIndex .col-md-3 span i{
+	.navbar .container-fluid .pro-3 .col-md-3 span i{
 		font-style: normal;
 		color: #FC6232;
 		display: inline-block;
@@ -76,6 +77,7 @@
 		font-size: 14px;
 	}
 	
+	/*****************************************************************************/
 	.navbar .container-fluid #section-flow2{
 		margin: 50px 0 0;
 	}
@@ -176,14 +178,7 @@
                 <li>
                      <a href="#"><i class="glyphicon glyphicon-shopping-cart"></i>&nbsp;购物车</a>
                 </li>
-                <!--<c:if test="${sessionScope.trueName == 'Tom'}">
-                	<li><a href="#">${sessionScope.trueName }</a></li>
-                </c:if>
-                <c:if test="${sessionScope.trueName != 'Tom'}">
-	                <li><a href="#">免费注册</a></li>
-	                <li><a href="getLogin.do">登录</a></li>
-                </c:if>
-                -->
+                
                 <% if (session.getAttribute("username") == null){%>
                 	
                 	<li><a href="#">免费注册</a></li>
@@ -192,19 +187,7 @@
                 <% }if (session.getAttribute("username") != null){ %>
                 	<li><a href="dishomepage.do">欢迎您：<%=session.getAttribute("username")%></a></li>
                 <% } %>  
-                
-                <!--   
-                <c:choose>
-					<c:when test="${session == null}">
-						
-						<li><a href="#">免费注册</a></li>
-	                	<li><a href="getLogin.do">登录</a></li>
-					</c:when>
-					<c:otherwise>
-						<li><a href="#">欢迎您：${sessionScope.trueName}</a></li>
-					</c:otherwise>
-				</c:choose>
-				--> 
+                  
             </ul>
 
         </div><!-- /.container-fluid -->
@@ -248,8 +231,8 @@
             </div>
         </div>
 		
-		<!-- 显示商品信息 -->
-        <div class="row" id="displayProductIndex">
+		<!-- 显示官方商品信息 -->
+        <div class="row pro-3" id="displayProductIndex">
         	<c:forEach items="${productIndexs }" var="productIndex">
         		<div class="col-md-3">
 	                <li>
@@ -274,6 +257,37 @@
 			<div id="classify2-h1">什么都能买</div>
 			<div id="classify2-h2">买啥都省一半钱</div>
 		</div>
+		
+		<div class="subnav-warp">
+            <div class="section subnav">
+                <div class="container no-plpr">
+                    <ul class="list-inline list-styled center nav nav-tabs nav-justified">
+                        <li class="active"><a href=" ">生活用品</a></li>
+                        <li class=""><a href=" ">学习用品</a></li>
+                        <li class=""><a href=" ">运动健身</a></li>
+                        <li class=""><a href=" ">球鞋配饰</a></li>
+                        <li class=""><a href=" ">珠宝收藏</a></li>
+                     </ul>
+                </div>
+            </div>
+        </div>
+        
+		<!-- 用户展示商品区 -->
+		<div class="row pro-3" id="displayUserProductIndex">
+        	<c:forEach items="${transtionProducts }" var="transtionProduct">
+        		<div class="col-md-3">
+	                <li>
+	                	<a href="getPurchase.do?id=${transtionProduct.id} }">
+		                    <div class="imgbox">
+ 		                        <img src="${transtionProduct.tpPicsrc }" width="168px" height="168px">
+ 		                    </div>
+		                    <span class="name">${transtionProduct.tpName }</span> 
+		                    <span>回收最高价&nbsp;<i>￥${transtionProduct.tpCostprice }</i></span>
+ 	                    </a>
+	                </li>
+            	</div>
+        	</c:forEach>
+        </div>
     </div>
 </nav>
 </body>

@@ -47,43 +47,54 @@ public class ProUserC {
 	 */
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	public void login(@RequestParam(name = "trueName") String trueName,
-			@RequestParam(name = "password") String password,HttpServletRequest req,HttpServletResponse resp)
+			@RequestParam(name = "password") String password, HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		System.out.println("trueName:"+trueName+" "+"password:"+password);
+		System.out.println("trueName:" + trueName + " " + "password:" + password);
 		ProUser proUser = service.queryProUser(trueName, password);
-		System.out.println(proUser);
+		//System.out.println(proUser);
 		StringBuffer json = new StringBuffer();
 		resp.setContentType("text/html;charset=utf-8");
 		PrintWriter out = resp.getWriter();
 		Map<String, Object> map = new HashMap<>();
 		if (proUser != null) {
-			
+
 			HttpSession session = req.getSession();
 			session.setAttribute("username", proUser.getTrueName());
+			session.setAttribute("userId", proUser.getId());
 			String session_id = session.getId();
-			
+
 			/*
 			 * 将sessionid保存到cookie中，这样就不需要每次进入页面时都要登录
 			 */
 			Cookie cookie = new Cookie("JSESSIONID", session_id);
-			//设置cookie保存时间
-			cookie.setMaxAge(30*60);
-			//将cookie放入响应中
+			// 设置cookie保存时间
+			cookie.setMaxAge(30 * 60);
+			// 将cookie放入响应中
 			resp.addCookie(cookie);
-			System.out.println("ssessionId:"+session.getId());
-			System.out.println("session="+session.getAttribute("username"));
-			//map.put("success", true);
-			//map.put("trueName", proUser.getTrueName());
+			//System.out.println("ssessionId:" + session.getId());
+			//System.out.println("session=" + session.getAttribute("username"));
+			// map.put("success", true);
+			// map.put("trueName", proUser.getTrueName());
 			json.append("{\"success\" : true}");
 		} else {
 			json.append("{\"success\" : false}");
-			//map.put("success", false);
+			// map.put("success", false);
 		}
-		//发送json格式数据到前台页面
+		// 发送json格式数据到前台页面
 		out.print(json);
-		//out.print(map);
- 	}
-	
-	
+		// out.print(map);
+	}
+
+	/**
+	 * 跳转至用户注册界面
+	 * 
+	 * @return mv
+	 */
+	@RequestMapping("/register.do")
+	public ModelAndView DisHomepage2() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/register");
+		return mv;
+	}
 
 }

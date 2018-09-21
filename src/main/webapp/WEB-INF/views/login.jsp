@@ -15,51 +15,121 @@
     <script type="application/javascript" src="jQuery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
     
 	<style type="text/css">
-		body{background-size:cover;font-size: 16px;}
-		.form{background: rgba(255,255,255,0.2);width:400px;margin:100px auto;}
-		#login_form{display: block;}
-		.fa{display: inline-block;top: 27px;left: 6px;position: relative;color: #ccc;}
-		input[type="text"],input[type="password"]{padding-left:26px;}
-		.checkbox{padding-left:21px;}
-		h3{
-			margin-left: 82px;
+		*{
+			box-sizing: border-box;
+		}
+		body{
+			font-family: -apple-system,BlinkMacSystemFont,
+			"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji",
+			"Segoe UI Emoji","Segoe UI Symbol";
+			font-size: 14px;
+			line-height: 1.5;
+			color: #24292e;
+			margin: 0;
+			padding: 0;
+			background-color: #f9f9f9;
+		}
+		
+		.container{
+			width: 308px;
+			margin: 0 auto;
+		}
+		
+		.container .form-horizontal .form-hrader{
+			margin-bottom: 15px;
+			color: #333;
+			text-align: center;
+			text-shadow: none;
+			background: transparent;
+			border: 0;
+		}
+		/*
+		.container .form-horizontal #flash-container .flash{
+			padding: 15px 20px;
+			margin: 0 auto;
+			margin-bottom: 10px;
+			font-size: 13px;
+			border-style: solid;
+			border-width: 1px;
+			border-radius: 5px;
+			position: relative;
+		}
+		.container .form-horizontal #flash-container .flash-error{
+			color: #86181d;
+			background-color: #ffdce0;
+			border-color: rbga(27,31,35,0.15);
+		}
+		*/
+		.container .form-horizontal .form-body{
+			border-top: 1px solid #d8dee2;
+			border-radius: 5px;
+			padding: 20px;
+			font-size: 14px;
+			background-color: #fff;
+			border: 1px solid #d8dee2;
+			
+		}
+		.container .form-horizontal .mt-3{
+			margin-top: 16px;
+		}
+		.container .form-horizontal .form-body label{
+			display: block;
+			margin-bottom: 7px;
+			font-weight: 600;
+		}
+		.container .form-horizontal .form-body .form-control{
+			min-height: 34px;
+			padding: 6px 8px;
+			font-size: 14px;
+			line-height: 20px;
+			color: #24292e;
+			vertical-align: middle;
+			background-color: #fff;
+			background-repeat: no-repeat;
+			background-position: right 8px center;
+			border: 1px solid #d1d5da;
+			border-radius: 3px;
+			outline: none;
+			box-shadow: inset 0 1px 2px rgba(27,31,35,0.075);
+		}
+		.container .form-horizontal .form-body .input-block{
+			margin-top: 5px;
+			margin-bottom: 15px;
+			display: block;
+			width: 100%
+		}
+		.container .form-horizontal .form-body .btn{
+			margin-top: 20px;
+			display: block;
+			width: 100%;
+			text-align: center;
+			position: relative;
+			padding: 6px 12px;
+			font-size: 14px;
+			font-weight: 600;
+			line-height: 20px;
+			border-radius: 0.25em;
+			
+		}
+		.container .form-horizontal .form-body .btn-primary{
+			color: #fff;
+			background-color: #28a745;
+			background-image: linear-gradient(-180deg,#34d058 0%,#28a745 90%);
+		}
+		.container .form-horizontal .create-account{
+			padding: 15px 20px;
+			text-align: center;
+			border: 1px solid #d8dee2;
+			border-radius: 5px;
+		}
+		.container .form-horizontal p a{
+			color: #0366d6;
+			text-decoration: none;
+			background-color: transparent;
 		}
 	</style>
 	
 	<script type="text/javascript">
-		/*	
-		function login() {
-			$.ajax({
-				type : "get",
-				url  : "login.do",
-				//data : "username="+$("#username").val()+"&password="+$("#password").val(),
-				data : {
-					"trueName" : $("#trueName").val(),
-					"password" : $("#password").val()
-				},
-				xhrFields:{
-					withCredentials:true
-				},
-				beforeSend : function (XMLHttpRequest) {
-					$("#tipMsg").text("正在身份认证请稍后...");
-					return true;
-				},
-				
-				success : function (data, textStatus) {
-					alert(data.success);
-					if(data.success){
-						//$("#tipMsg").text("认证成功");
-						localStorage.setItem("trueName",data.trueName);
-						
-						window.location.href = "getProductIndex.do";
-					}else{
-						$("#tipMsg").text("用户名不存在或者密码错误");
-					}
-				}
-			});
-		}
-		*/
-	
 	function login() {
 		//获取用户名和密码
 		var trueName = document.getElementById("trueName").value;
@@ -80,7 +150,7 @@
 					//接受json
 					var jsonString = xhr.responseText;
 					eval("var jsonObj = " + jsonString);
-					var tipMsg = document.getElementById("tipMsg");
+					var tipMsg = document.getElementById("container-error");
 					if(jsonObj.success){
 							//跳转页面
 						
@@ -107,35 +177,40 @@
 <body>
 	<div class="container">
 		<div class="form row">
-			<div class="form-horizontal col-sm-offset-3 col-md-offset-3">
-			<!-- <form class="form-horizontal col-sm-offset-3 col-md-offset-3" id="login_form" action="login.do" method="post"> -->
-				<h3 class="form-title">登                   录</h3>
-				<div class="col-sm-9 col-md-9">
-					<div class="form-group">
-						<i class="fa fa-user fa-lg"></i>
-						<input class="form-control required" type="text" placeholder="trueName" id="trueName" 
-						 autofocus="autofocus" maxlength="20"/>
-						<span id="yanz"></span>
-					</div>
-					<div class="form-group">
-							<i class="fa fa-lock fa-lg"></i>
-							<input class="form-control required" type="password" placeholder="Password" id="password" maxlength="8"/>
-					</div>
-					<div class="form-group">
-						<label class="checkbox">
-							<input type="checkbox" name="ten" value="true"/> 10 天免登陆
-						</label>
-						<hr />
-						<a href="javascript:;" id="register_btn" class="">注册</a>
-					</div>
-					<div class="form-group">
-						<input type="submit" class="btn btn-success pull-right" id="loginBtn" onclick="login();" value="登录 "/>
-						<br>
-						<br>
-						<span id="tipMsg" style="font-size: 12px; color: red;"></span>   
+			<div class="form-horizontal">
+				<div class="form-hrader">
+					<h3 class="form-title">登录</h3>	
+				</div>
+				
+				<div id="flash-container">
+					<div class="flash flash-full flash-error">
+						<div id="container-error">
+							
+						</div>
 					</div>
 				</div>
-			<!-- </form> -->
+				
+				<div class="form-body mt-3">
+					<label>用户名</label>
+					<input type="text" class="form-control input-block" id="trueName" 
+					 autofocus="autofocus" maxlength="20"/>
+					 
+					<span id="yanz"></span>
+					<label>密码</label>
+					<input type="password" class="form-control form-control input-block"  id="password" 
+					maxlength="8"/>
+					
+					<input type="submit" class="btn btn-primary btn-block" id="loginBtn" 
+					onclick="login();" value="登录 "/>
+					<span id="tipMsg" style="font-size: 12px; color: red;"></span>   
+				</div>	
+					
+				<p class="create-account mt-3">
+					New to soft?
+					<a href="register.do" id="register_btn" class="">创建账号</a>
+				</p>
+			
+		
 			</div>
 		</div>	
 	</div>

@@ -2,17 +2,20 @@ package com.ycxy.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
+import com.ycxy.model.ProUser;
 import com.ycxy.model.TranstionProduct;
 
 public interface TranstionProductMapper {
 
 	/**
-	 * 根据用户id取得所有属于该用户的商品
+	 * 根据商品id取得该商品
 	 * 
 	 * @param tpUserid
 	 * @return
 	 */
-	TranstionProduct queryTranstionProductsBytpUserid(String id);
+	TranstionProduct queryTranstionProductsByid(String id);
 
 	/**
 	 * 取得所有商品
@@ -20,4 +23,20 @@ public interface TranstionProductMapper {
 	 * @return
 	 */
 	List<TranstionProduct> queryTranstionProducts();
+
+	/**
+	 * 根据用户id取得所有属于该用户的商品
+	 * 
+	 * @param tpUserid
+	 * @return
+	 */
+	List<TranstionProduct> queryTranstionProductsBytpUserid(@Param("tpuserid") String tpuserid);
+
+	/**
+	 * 根据id取得该用户信息
+	 * 
+	 * @param id
+	 * @return
+	 */
+	ProUser queryProUser(String id);
 }
