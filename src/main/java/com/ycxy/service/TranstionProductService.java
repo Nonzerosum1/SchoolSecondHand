@@ -15,13 +15,22 @@ public class TranstionProductService {
 	private TranstionProductMapper mapper;
 
 	/**
-	 * 根据用户id取得所有属于该用户的商品
+	 * 根据商品id取得该的商品
 	 * 
 	 * @param tpUserid
 	 * @return
 	 */
-	public List<TranstionProduct> queryTranstionProductsBytpUserid(String tpUserid) {
-		return mapper.queryTranstionProductsBytpUserid(tpUserid);
+	public TranstionProduct queryTranstionProductsBytpUserid(String id) {
+		return mapper.queryTranstionProductsBytpUserid(id);
+	}
+
+	/**
+	 * 取得所有商品
+	 * 
+	 * @return
+	 */
+	public List<TranstionProduct> queryTranstionProducts() {
+		return mapper.queryTranstionProducts();
 	}
 
 }

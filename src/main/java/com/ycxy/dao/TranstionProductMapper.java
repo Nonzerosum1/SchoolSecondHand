@@ -12,7 +12,7 @@ public interface TranstionProductMapper {
 	 * @param tpUserid
 	 * @return
 	 */
-	List<TranstionProduct> queryTranstionProductsBytpUserid(String tpUserid);
+	TranstionProduct queryTranstionProductsBytpUserid(String id);
 
 	/**
 	 * 取得所有商品

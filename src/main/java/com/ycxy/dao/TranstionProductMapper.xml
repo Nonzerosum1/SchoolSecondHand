@@ -6,7 +6,7 @@
 <mapper namespace="com.ycxy.dao.TranstionProductMapper">
 	<!-- 根据用户id取得所有属于该用户的商品 -->
 	<select id="queryTranstionProductsBytpUserid" resultMap="ProUserMap">
-		select * from transtionproduct where tpuserid=#{tpUserid}
+		select * from transtionproduct where tpuserid=#{id}
 	</select>
 	
 	<resultMap type="com.ycxy.model.TranstionProduct" id="ProUserMap">
