@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="com.ycxy.dao.ProductMapper">
+	
+	<!-- 获得用户要发布的所有商品 -->
+	<select id="queryProducts" resultType="com.ycxy.model.Product">
+		select * from product 
+	</select>
+	
+	<!-- 获得主界面展示的所有商品 -->
+	<select id="queryProductIndexs" resultType="com.ycxy.model.ProductIndex">
+		select * from productindex
+	</select>
+</mapper>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="com.ycxy.dao.TranstionProductMapper">
+	<!-- 根据用户id取得所有属于该用户的商品 -->
+	<select id="queryTranstionProductsBytpUserid" resultMap="ProUserMap">
+		select * from transtionproduct where tpuserid=#{tpUserid}
+	</select>
+	
+	<resultMap type="com.ycxy.model.TranstionProduct" id="ProUserMap">
+		<result property="id" column="id"/>
+		<result property="tpName" column="tpName"/>
+		<result property="tpSellprice" column="tpSellprice"/>
+		<result property="tpCostprice" column="tpCostprice"/>
+		<result property="tpCondition" column="tpCondition"/>
+		<result property="tpPicsrc" column="tpPicsrc"/>
+		<result property="tpUserid" column="tpUserid"/>
+		
+		<association property="proUser" select="queryProUser" column="id"></association>
+	</resultMap>
+	
+	<select id="queryProUser" resultType="com.ycxy.model.ProUser">
+		select * from prouser where id=#{tpUserid}
+	</select>
+	
+	<!-- 取得所有商品 -->
+	<select id="queryTranstionProducts" resultType="com.ycxy.model.TranstionProduct">
+		select * from transtionproduct 
+	</select>
+</mapper>
