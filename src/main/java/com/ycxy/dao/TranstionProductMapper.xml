@@ -34,4 +34,10 @@
 	<select id="queryTranstionProductsByid" resultMap="ProUserMap">
 		select * from transtionproduct where id=#{id}
 	</select>
+	
+	<!-- 将仓库中的商品发布到商品展示页面 -->
+	<insert id="insertTranstionProduct">
+		insert into transtionproduct (tpname,tpsellprice,tpcostprice,tpcondition,tppicsrc,tpuserid)
+		values(#{proName},#{proSellprice},#{proCostprice},#{proCondition},#{proPicsrc},#{proUserid})
+	</insert>
 </mapper>

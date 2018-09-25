@@ -19,8 +19,8 @@ public class ProductService {
 	 * 获得用户要发布的所有商品
 	 * 
 	 */
-	public List<Product> queryProducts(){
-		return mapper.queryProducts();
+	public List<Product> queryProducts(String proUserid){
+		return mapper.queryProducts(proUserid);
 	}
 	
 	/*
@@ -29,5 +29,4 @@ public class ProductService {
 	public List<ProductIndex> queryProductIndexs(){
 		return mapper.queryProductIndexs();
 	}
-
 }

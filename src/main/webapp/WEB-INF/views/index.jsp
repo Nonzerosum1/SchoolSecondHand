@@ -5,7 +5,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>后台首页</title>
-
+<%
+	/*
+	quan xian kong zhi
+	*/
+	if(session.getAttribute("username")==null){
+		response.sendRedirect("getLogin.do");
+	}
+%>
 <script type="application/javascript" src="jQuery/jquery-1.11.1.js"></script>
 <link type="text/css" rel="stylesheet" href="jQuery/bootstrap_3.3.0/css/bootstrap.min.css">
 <script type="application/javascript" src="jQuery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
@@ -37,8 +44,8 @@
                         <span class="pull-right glyphicon glyphicon-chevron-down"></span>
                     </a>
                     <ul id="proManage" class="nav nav-list collapse secondmenu" style="height: 0px;">
-                        <li><a href="#" onclick="menuClick('${pageContext.request.contextPath}/queryProducts.do')"><i class="glyphicon glyphicon-user"></i>出售中的宝贝</a></li>
-                        <li><a href="#" onclick="menuClick('${pageContext.request.contextPath}/getUserListProducts.do?tpuserid=<%=session.getAttribute("userId")%>')"><i class="glyphicon glyphicon-th-list"></i>仓库中的宝贝</a></li>
+                        <li><a href="#" onclick="menuClick('${pageContext.request.contextPath}/queryProducts.do?proUserid=<%=session.getAttribute("userId")%>')"><i class="glyphicon glyphicon-th-list"></i>仓库中的宝贝</a></li>
+                        <li><a href="#" onclick="menuClick('${pageContext.request.contextPath}/getUserListProducts.do?tpuserid=<%=session.getAttribute("userId")%>')"><i class="glyphicon glyphicon-user"></i>出售中的宝贝</a></li>
                         <li><a href="#"><i class="glyphicon glyphicon-asterisk"></i>体验中心</a></li>
                         
                     </ul>

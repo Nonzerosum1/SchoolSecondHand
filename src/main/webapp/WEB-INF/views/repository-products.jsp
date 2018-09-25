@@ -15,7 +15,7 @@
 <body>
 <div class="container-fluid">
 	<div class="row">
-		<h3 class="text-left">仓库产品列表</h3>
+		<h3 class="text-left">出售中产品列表</h3>
 	</div>
 	<div class="row">
 	<table class="table table-striped table-hover">

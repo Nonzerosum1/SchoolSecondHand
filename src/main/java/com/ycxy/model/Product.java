@@ -1,26 +1,27 @@
 package com.ycxy.model;
 
 /**
- * 用户要发布的商品列表，
- * 不是主界面展示的商品，
- * 发布后才在主界面显示。
+ * 用户要发布的商品列表， 不是主界面展示的商品， 发布后才在主界面显示。
+ * 
  * @author ASUS
  *
  */
 public class Product {
 
-	//商品id
+	// 商品id
 	private String id;
-	//商品名字
+	// 商品名字
 	private String proName;
-	//发布时要买的价钱
-	private String price;
-	//现今该商品的市场价
-	private String marketPrice;
-	//商品分类
-	private String proClass;
-	//商品描述
-	private String proDetail;
+	// 发布时要买的价钱(转卖价)
+	private String proSellprice;
+	// 现今该商品的市场价(原价)
+	private String proCostprice;
+	// 商品成色
+	private String proCondition;
+	// 商品地址
+	private String proPicsrc;
+	// 用户id
+	private String proUserid;
 
 	public String getId() {
 		return id;
@@ -38,42 +39,51 @@ public class Product {
 		this.proName = proName;
 	}
 
-	public String getPrice() {
-		return price;
+	public String getProSellprice() {
+		return proSellprice;
 	}
 
-	public void setPrice(String price) {
-		this.price = price;
+	public void setProSellprice(String proSellprice) {
+		this.proSellprice = proSellprice;
 	}
 
-	public String getMarketPrice() {
-		return marketPrice;
+	public String getProCostprice() {
+		return proCostprice;
 	}
 
-	public void setMarketPrice(String marketPrice) {
-		this.marketPrice = marketPrice;
+	public void setProCostprice(String proCostprice) {
+		this.proCostprice = proCostprice;
 	}
 
-	public String getProClass() {
-		return proClass;
+	public String getProCondition() {
+		return proCondition;
 	}
 
-	public void setProClass(String proClass) {
-		this.proClass = proClass;
+	public void setProCondition(String proCondition) {
+		this.proCondition = proCondition;
 	}
 
-	public String getProDetail() {
-		return proDetail;
+	public String getProPicsrc() {
+		return proPicsrc;
 	}
 
-	public void setProDetail(String proDetail) {
-		this.proDetail = proDetail;
+	public void setProPicsrc(String proPicsrc) {
+		this.proPicsrc = proPicsrc;
+	}
+
+	public String getProUserid() {
+		return proUserid;
+	}
+
+	public void setProUserid(String proUserid) {
+		this.proUserid = proUserid;
 	}
 
 	@Override
 	public String toString() {
-		return "Product [id=" + id + ", proName=" + proName + ", price=" + price + ", marketPrice=" + marketPrice
-				+ ", proClass=" + proClass + ", proDetail=" + proDetail + "]";
+		return "Product [id=" + id + ", proName=" + proName + ", proSellprice=" + proSellprice + ", proCostprice="
+				+ proCostprice + ", proCondition=" + proCondition + ", proPicsrc=" + proPicsrc + ", proUserid="
+				+ proUserid + "]";
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.ycxy.model.ProUser;
+import com.ycxy.model.Product;
 import com.ycxy.model.TranstionProduct;
 
 public interface TranstionProductMapper {
@@ -39,4 +40,13 @@ public interface TranstionProductMapper {
 	 * @return
 	 */
 	ProUser queryProUser(String id);
+
+	/**
+	 * 将仓库中的商品发布到商品展示页面
+	 * 
+	 * @return
+	 */
+	int insertTranstionProduct(@Param("proName") String proName, @Param("proSellprice") String proSellprice,
+			@Param("proCostprice") String proCostprice, @Param("proCondition") String proCondition,
+			@Param("proPicsrc") String proPicsrc, @Param("proUserid") String proUserid);
 }

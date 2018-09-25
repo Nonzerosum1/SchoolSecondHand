@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ycxy.dao.TranstionProductMapper;
 import com.ycxy.model.ProUser;
+import com.ycxy.model.Product;
 import com.ycxy.model.TranstionProduct;
 
 @Service
@@ -23,7 +24,7 @@ public class TranstionProductService {
 	 */
 	public TranstionProduct queryTranstionProductsByid(String id) {
 		TranstionProduct transtionProductsByid = mapper.queryTranstionProductsByid(id);
-		System.out.println("wwww="+transtionProductsByid.getTpuserid());
+		System.out.println("wwww=" + transtionProductsByid.getTpuserid());
 		ProUser proUser = mapper.queryProUser(transtionProductsByid.getTpuserid());
 		transtionProductsByid.setProUser(proUser);
 		return transtionProductsByid;
@@ -45,7 +46,12 @@ public class TranstionProductService {
 	 * @return
 	 */
 	public List<TranstionProduct> queryTranstionProductsBytpUserid(String tpUserid) {
-		return mapper.queryTranstionProductsBytpUserid(tpUserid);		
+		return mapper.queryTranstionProductsBytpUserid(tpUserid);
+	}
+
+	public int insertTranstionProduct(String proName, String proSellprice, String proCostprice, String proCondition,
+			String proPicsrc, String proUserid) {
+		return mapper.insertTranstionProduct(proName, proSellprice, proCostprice, proCondition, proPicsrc, proUserid);
 	}
 
 }

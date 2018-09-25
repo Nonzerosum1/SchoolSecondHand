@@ -14,28 +14,59 @@
 	quan xian kong zhi
 	*/
 	if(session.getAttribute("username")==null){
-		response.sendRedirect("login.do");
+		response.sendRedirect("getLogin.do");
 	}
 %>
 <script type="application/javascript" src="jQuery/jquery-1.11.1.js"></script>
 <link type="text/css" rel="stylesheet" href="jQuery/bootstrap_3.3.0/css/bootstrap.min.css">
 <script type="application/javascript" src="jQuery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
 
+<script type="text/javascript">
+	$(function () {
+		$("#transtionBtn").click(function () {
+			$.ajax({
+				type : "post",
+				url  : "insertTranstionProduct.do",
+				//data : "username="+$("#username").val()+"&password="+$("#password").val(),
+				data : {
+					"proName" : $("#proName").val(),
+					"proSellprice" : $("proSellprice").val(),
+					"proCostprice" : $("proCostprice").val(),
+					"proCondition" : $("proCondition").val(),
+					"proPicsrc" : $("proPicsrc").val(),
+					"proUserid" : $("proUserid").val()
+				},
+				beforeSend : function () {
+					$("#tipMsg").text("正在身份认证请稍后...");
+					return true;
+				},
+				success : function (jsonObj) {
+					if(jsonObj.success){
+						$("#tipMsg").text("认证成功");
+					}else{
+						$("#tipMsg").text("用户名不存在或者密码错误");
+					}
+				}
+			});
+		});
+	});
+</script>
 </head>
 <body>
 <div class="container-fluid">
 	<div class="row">
-		<h3 class="text-left">产品列表</h3>
+		<h3 class="text-left">仓库产品列表</h3>
 	</div>
 	<div class="row">
 	<table class="table table-striped table-hover">
 	<thead>
 		<tr style="color: #B3B3B3;" class="text-center">
+			<td><input type="checkbox"></td>
 			<td>商品名称</td>
-			<td>商品价格</td>
-			<td>市场价</td>
-			<td>商品类型</td>
-			<td>商品描述</td>
+			<td>商品转卖价</td>
+			<td>商品原价</td>
+			<td>商品成色</td>
+			<td>商品地址</td>
 			<td>
 				操作 
 				<!-- <a class="btn btn-info btn-sm active" href="insert-form.jsp" role="button">添加</a> -->
@@ -48,15 +79,26 @@
 	
 	<c:forEach items="${products }" var="product">
 		<tr class="text-center">
-			<td>${product.proName }</td>
-			<td>${product.price }</td>
-			<td>${product.marketPrice }</td>
-			<td>${product.proClass }</td>
-			<td>${product.proDetail }</td>
+			<td><input type="checkbox"></td>
+			<td id="proNmae">${product.proName }</td>
+			<td id="proSellprice">${product.proSellprice }</td>
+			<td id="proCostprice">${product.proCostprice }</td>
+			<td id="proCondition">${product.proCondition }</td>
+			<td id="proPicsrc">${product.proPicsrc }</td>
+			<td id="proUserid" style="display: none;">${product.proUserid }</td>
 			<td>
 				<a class="btn btn-primary btn-sm active" href="getUpdateForm.do?id=${product.id }" role="button">修改</a>&nbsp;
-				<a class="btn btn-danger btn-sm active" href="deleteProduct.do?id=${product.id }" role="button">删除</a>
+				<!-- 
+				<a class="btn btn-danger btn-sm active" href="insertTranstionProduct.do?proName=${product.proName }
+																	&proSellprice=${product.proSellprice }
+																	&proCostprice=${product.proCostprice }
+																	&proCondition=${product.proCondition }
+																	&proPicsrc=${product.proPicsrc }
+				 													&proUserid=${product.proUserid }" role="button" id="transtionBtn">发布</a>
+				 -->
+				 <a class="btn btn-danger btn-sm active"  role="button" id="transtionBtn">发布</a>
 			</td>
+			
 		</tr>
 	</c:forEach>
 	</table>

@@ -2,10 +2,14 @@ package com.ycxy.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -48,9 +52,9 @@ public class ProductC {
 	 * 显示用户要发布的商品列表
 	 */
 	@RequestMapping("/queryProducts.do")
-	public ModelAndView queryProducts() {
-		List<Product> products = service.queryProducts();
-		System.out.println("products="+products);
+	public ModelAndView queryProducts(@RequestParam(name = "proUserid") String proUserid) {
+		List<Product> products = service.queryProducts(proUserid);
+		System.out.println("products=" + products);
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("products", products);
 		mv.setViewName("/product-list");
@@ -58,18 +62,17 @@ public class ProductC {
 	}
 
 	/*
-	 * 跳转至商品展示界面（主界面）
-	 * 取得用户的所有商品展示到主界面（主界面“什么都能买”下面）
+	 * 跳转至商品展示界面（主界面） 取得用户的所有商品展示到主界面（主界面“什么都能买”下面）
 	 */
 	@RequestMapping("/getProductIndex.do")
 	public ModelAndView getProductIndex() {
 		List<ProductIndex> productIndexs = service.queryProductIndexs();
 		List<TranstionProduct> transtionProducts = service2.queryTranstionProducts();
-		System.out.println("productIndexs="+productIndexs);
-		System.out.println("transtionProducts="+transtionProducts);
+		System.out.println("productIndexs=" + productIndexs);
+		System.out.println("transtionProducts=" + transtionProducts);
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("productIndexs", productIndexs);
-		mv.addObject("transtionProducts",transtionProducts);
+		mv.addObject("transtionProducts", transtionProducts);
 		mv.setViewName("/product-index");
 		return mv;
 	}
@@ -78,16 +81,13 @@ public class ProductC {
 	 * 取得用户的所有商品展示到主界面（主界面“什么都能买”下面）
 	 * 
 	 * @return
-	 
-	@RequestMapping("/getProductIndex.do")
-	public ModelAndView getProductUserPage() {
-		List<TranstionProduct> transtionProducts = service2.queryTranstionProducts();
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("transtionProducts", transtionProducts);
-		mv.setViewName("/product-index");
-		return mv;
-	}
-	*/
+	 * 
+	 * 		@RequestMapping("/getProductIndex.do") public ModelAndView
+	 *         getProductUserPage() { List<TranstionProduct> transtionProducts =
+	 *         service2.queryTranstionProducts(); ModelAndView mv = new
+	 *         ModelAndView(); mv.addObject("transtionProducts", transtionProducts);
+	 *         mv.setViewName("/product-index"); return mv; }
+	 */
 	/**
 	 * 根据商品id，得到商品详情页
 	 * 
@@ -97,7 +97,7 @@ public class ProductC {
 	@RequestMapping("/getPurchase.do")
 	public ModelAndView getProductDetailPage1(String id) {
 		TranstionProduct productsByid = service2.queryTranstionProductsByid(id);
-		//System.out.println("productsByid="+productsByid);
+		// System.out.println("productsByid="+productsByid);
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("productsByid", productsByid);
 		mv.setViewName("/purchase");
@@ -112,13 +112,51 @@ public class ProductC {
 	 */
 	@RequestMapping("/getUserListProducts.do")
 	public ModelAndView getUserListProducts(@RequestParam(name = "tpuserid") String tpuserid) {
-		System.out.println("tpUserid="+tpuserid);
+		System.out.println("tpUserid=" + tpuserid);
 		List<TranstionProduct> productsBytpUserids = service2.queryTranstionProductsBytpUserid(tpuserid);
-		System.out.println("productsBytpUserids="+productsBytpUserids);
+		System.out.println("productsBytpUserids=" + productsBytpUserids);
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("productsBytpUserids", productsBytpUserids);
 		mv.setViewName("/repository-products");
 		return mv;
 	}
 
+	/**
+	 * 将仓库中的商品发布到商品展示页面
+	 * 
+	 * @param proName
+	 * @param proSellprice
+	 * @param proCostprice
+	 * @param proCondition
+	 * @param proPicsrc
+	 * @param proUserid
+	 * @return
+	 
+	@RequestMapping("/insertTranstionProduct.do")
+	public ModelAndView insertTranstionProduct(@RequestParam(name = "proName") String proName,
+			@RequestParam(name = "proSellprice") String proSellprice,
+			@RequestParam(name = "proCostprice") String proCostprice,
+			@RequestParam(name = "proCondition") String proCondition,
+			@RequestParam(name = "proPicsrc") String proPicsrc, @RequestParam(name = "proUserid") String proUserid) {
+		int result = service2.insertTranstionProduct(proName, proSellprice, proCostprice, proCondition, proPicsrc,
+				proUserid);
+		ModelAndView mv = new ModelAndView();
+		if (result > 0) {
+			mv.setViewName("/product-index");
+		} else {
+			mv.setViewName("/fail");
+		}
+		return mv;
+	}
+	*/
+	
+	@RequestMapping(value="/insertTranstionProduct.do",method=RequestMethod.POST)
+	public void insertTranstionProduct(@RequestParam(name = "proName") String proName,
+			@RequestParam(name = "proSellprice") String proSellprice,
+			@RequestParam(name = "proCostprice") String proCostprice,
+			@RequestParam(name = "proCondition") String proCondition,
+			@RequestParam(name = "proPicsrc") String proPicsrc, @RequestParam(name = "proUserid") String proUserid,
+			HttpServletRequest req, HttpServletResponse resp) {
+		
+	}
 }
