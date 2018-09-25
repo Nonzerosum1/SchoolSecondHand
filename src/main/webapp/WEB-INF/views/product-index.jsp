@@ -185,7 +185,7 @@
 	                <li><a href="getLogin.do">登录</a></li>
                 	
                 <% }if (session.getAttribute("username") != null){ %>
-                	<li><a href="dishomepage.do">欢迎您：<%=session.getAttribute("username")%></a></li>
+                	<li><a href="dishomepage.do" target="_blank">欢迎您：<%=session.getAttribute("username")%></a></li>
                 <% } %>  
                   
             </ul>

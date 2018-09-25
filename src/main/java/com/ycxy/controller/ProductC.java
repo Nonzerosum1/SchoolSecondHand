@@ -1,5 +1,7 @@
 package com.ycxy.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -68,8 +70,8 @@ public class ProductC {
 	public ModelAndView getProductIndex() {
 		List<ProductIndex> productIndexs = service.queryProductIndexs();
 		List<TranstionProduct> transtionProducts = service2.queryTranstionProducts();
-		System.out.println("productIndexs=" + productIndexs);
-		System.out.println("transtionProducts=" + transtionProducts);
+		//System.out.println("productIndexs=" + productIndexs);
+		//System.out.println("transtionProducts=" + transtionProducts);
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("productIndexs", productIndexs);
 		mv.addObject("transtionProducts", transtionProducts);
@@ -114,7 +116,7 @@ public class ProductC {
 	public ModelAndView getUserListProducts(@RequestParam(name = "tpuserid") String tpuserid) {
 		System.out.println("tpUserid=" + tpuserid);
 		List<TranstionProduct> productsBytpUserids = service2.queryTranstionProductsBytpUserid(tpuserid);
-		System.out.println("productsBytpUserids=" + productsBytpUserids);
+		//System.out.println("productsBytpUserids=" + productsBytpUserids);
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("productsBytpUserids", productsBytpUserids);
 		mv.setViewName("/repository-products");
@@ -131,32 +133,54 @@ public class ProductC {
 	 * @param proPicsrc
 	 * @param proUserid
 	 * @return
-	 
-	@RequestMapping("/insertTranstionProduct.do")
-	public ModelAndView insertTranstionProduct(@RequestParam(name = "proName") String proName,
-			@RequestParam(name = "proSellprice") String proSellprice,
-			@RequestParam(name = "proCostprice") String proCostprice,
-			@RequestParam(name = "proCondition") String proCondition,
-			@RequestParam(name = "proPicsrc") String proPicsrc, @RequestParam(name = "proUserid") String proUserid) {
-		int result = service2.insertTranstionProduct(proName, proSellprice, proCostprice, proCondition, proPicsrc,
-				proUserid);
-		ModelAndView mv = new ModelAndView();
-		if (result > 0) {
-			mv.setViewName("/product-index");
-		} else {
-			mv.setViewName("/fail");
-		}
-		return mv;
-	}
-	*/
-	
-	@RequestMapping(value="/insertTranstionProduct.do",method=RequestMethod.POST)
+	 * 
+	 * 		@RequestMapping("/insertTranstionProduct.do") public ModelAndView
+	 *         insertTranstionProduct(@RequestParam(name = "proName") String
+	 *         proName,
+	 * @throws IOException
+	 * @RequestParam(name = "proSellprice") String proSellprice,
+	 * @RequestParam(name = "proCostprice") String proCostprice,
+	 * @RequestParam(name = "proCondition") String proCondition,
+	 * @RequestParam(name = "proPicsrc") String proPicsrc, @RequestParam(name =
+	 *                    "proUserid") String proUserid) { int result =
+	 *                    service2.insertTranstionProduct(proName, proSellprice,
+	 *                    proCostprice, proCondition, proPicsrc, proUserid);
+	 *                    ModelAndView mv = new ModelAndView(); if (result > 0) {
+	 *                    mv.setViewName("/product-index"); } else {
+	 *                    mv.setViewName("/fail"); } return mv; }
+	 */
+
+	/**
+	 * 将仓库中的商品发布到商品展示页面
+	 * 
+	 * @param proName
+	 * @param proSellprice
+	 * @param proCostprice
+	 * @param proCondition
+	 * @param proPicsrc
+	 * @param proUserid
+	 * @param req
+	 * @param resp
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "/insertTranstionProduct.do", method = RequestMethod.POST)
 	public void insertTranstionProduct(@RequestParam(name = "proName") String proName,
 			@RequestParam(name = "proSellprice") String proSellprice,
 			@RequestParam(name = "proCostprice") String proCostprice,
 			@RequestParam(name = "proCondition") String proCondition,
 			@RequestParam(name = "proPicsrc") String proPicsrc, @RequestParam(name = "proUserid") String proUserid,
-			HttpServletRequest req, HttpServletResponse resp) {
-		
+			HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		System.out.println("proName="+proName+" proSellprice="+proSellprice);
+		int result = service2.insertTranstionProduct(proName, proSellprice, proCostprice, proCondition, proPicsrc,
+				proUserid);
+		StringBuilder json = new StringBuilder();
+		resp.setContentType("text/html;charset=utf-8");
+		PrintWriter out = resp.getWriter();
+		if (result > 0) {
+			json.append("{\"success\":true}");
+		} else {
+			json.append("{\"success\":false}");
+		}
+		out.print(json);
 	}
 }

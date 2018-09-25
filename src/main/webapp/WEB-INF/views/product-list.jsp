@@ -22,6 +22,39 @@
 <script type="application/javascript" src="jQuery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
+	function transtion(btn) {
+		var tr = btn.parentNode.parentNode;
+		var proName = tr.cell(2);
+		$.ajax({
+			type : "post",
+			url  : "insertTranstionProduct.do",
+			//data : "username="+$("#username").val()+"&password="+$("#password").val(),
+			data : {
+				"proName" : $("#proName").text(),
+				"proSellprice" : $("#proSellprice").text(),
+				"proCostprice" : $("#proCostprice").text(),
+				"proCondition" : $("#proCondition").text(),
+				"proPicsrc" : $("#proPicsrc").text(),
+				"proUserid" : $("#proUserid").text()
+			},
+			dataType : 'json',
+			async:true,
+			beforeSend : function () {
+				$("#tipMsg").text("正在发布");
+				return true;
+			},
+			success : function (jsonObj) {
+				if(jsonObj.success){
+					$("#tipMsg").text("已发布");
+				}else{
+					//$("#tipMsg").text("");
+					alert("发布未成功");
+				}
+			}
+		});
+	}
+	
+	/*
 	$(function () {
 		$("#transtionBtn").click(function () {
 			$.ajax({
@@ -29,27 +62,30 @@
 				url  : "insertTranstionProduct.do",
 				//data : "username="+$("#username").val()+"&password="+$("#password").val(),
 				data : {
-					"proName" : $("#proName").val(),
-					"proSellprice" : $("proSellprice").val(),
-					"proCostprice" : $("proCostprice").val(),
-					"proCondition" : $("proCondition").val(),
-					"proPicsrc" : $("proPicsrc").val(),
-					"proUserid" : $("proUserid").val()
+					"proName" : $("#proName").text(),
+					"proSellprice" : $("#proSellprice").text(),
+					"proCostprice" : $("#proCostprice").text(),
+					"proCondition" : $("#proCondition").text(),
+					"proPicsrc" : $("#proPicsrc").text(),
+					"proUserid" : $("#proUserid").text()
 				},
+				dataType : 'json',
 				beforeSend : function () {
-					$("#tipMsg").text("正在身份认证请稍后...");
+					$("#tipMsg").text("正在发布");
 					return true;
 				},
 				success : function (jsonObj) {
 					if(jsonObj.success){
-						$("#tipMsg").text("认证成功");
+						$("#tipMsg").text("已发布");
 					}else{
-						$("#tipMsg").text("用户名不存在或者密码错误");
+						//$("#tipMsg").text("");
+						alert("发布未成功");
 					}
 				}
 			});
 		});
 	});
+	*/
 </script>
 </head>
 <body>
@@ -74,13 +110,14 @@
 				  添加
 				</button>
 			</td>
+			<td>发布状态</td>
 	</tr>
 	</thead>
 	
 	<c:forEach items="${products }" var="product">
 		<tr class="text-center">
 			<td><input type="checkbox"></td>
-			<td id="proNmae">${product.proName }</td>
+			<td id="proName">${product.proName }</td>
 			<td id="proSellprice">${product.proSellprice }</td>
 			<td id="proCostprice">${product.proCostprice }</td>
 			<td id="proCondition">${product.proCondition }</td>
@@ -95,10 +132,15 @@
 																	&proCondition=${product.proCondition }
 																	&proPicsrc=${product.proPicsrc }
 				 													&proUserid=${product.proUserid }" role="button" id="transtionBtn">发布</a>
+				 <a class="btn btn-danger btn-sm active" role="button" id="transtionBtn">发布</a>
 				 -->
-				 <a class="btn btn-danger btn-sm active"  role="button" id="transtionBtn">发布</a>
+				 <input class="btn btn-danger btn-sm active" type="button" value="发布" onclick="transtion(this)">
+				 
+				 <!-- 
+				 <button type="button" class="btn btn-info btn-sm" id="transtionBtn">发布</button>
+				  -->
 			</td>
-			
+			<td id="tipMsg" style="font-size: 12px; color: green;">未发布</td>
 		</tr>
 	</c:forEach>
 	</table>

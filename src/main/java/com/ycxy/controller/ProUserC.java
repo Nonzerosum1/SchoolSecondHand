@@ -55,7 +55,7 @@ public class ProUserC {
 		StringBuffer json = new StringBuffer();
 		resp.setContentType("text/html;charset=utf-8");
 		PrintWriter out = resp.getWriter();
-		Map<String, Object> map = new HashMap<>();
+
 		if (proUser != null) {
 
 			HttpSession session = req.getSession();
