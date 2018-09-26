@@ -23,29 +23,35 @@
 
 <script type="text/javascript">
 	function transtion(btn) {
-		var tr = btn.parentNode.parentNode;
-		var proName = tr.cell(2);
+		var tds = $(btn).closest('tr').find('td');
+		var proName = tds.eq(1).text();
+		var proSellprice = tds.eq(2).text();
+		var proCostprice = tds.eq(3).text();
+		var proCondition = tds.eq(4).text();
+		var proPicsrc = tds.eq(5).text();
+		var proUserid = tds.eq(6).text();
+		
+		var params = {
+				proName : proName,
+				proSellprice : proSellprice,
+				proCostprice : proCostprice,
+				proCondition : proCondition,
+				proPicsrc : proPicsrc,
+				proUserid : proUserid
+		}
 		$.ajax({
 			type : "post",
+			data : params,
 			url  : "insertTranstionProduct.do",
-			//data : "username="+$("#username").val()+"&password="+$("#password").val(),
-			data : {
-				"proName" : $("#proName").text(),
-				"proSellprice" : $("#proSellprice").text(),
-				"proCostprice" : $("#proCostprice").text(),
-				"proCondition" : $("#proCondition").text(),
-				"proPicsrc" : $("#proPicsrc").text(),
-				"proUserid" : $("#proUserid").text()
-			},
 			dataType : 'json',
-			async:true,
+			async : false,
 			beforeSend : function () {
-				$("#tipMsg").text("正在发布");
+				tds.eq(8).text("正在发布");
 				return true;
 			},
 			success : function (jsonObj) {
 				if(jsonObj.success){
-					$("#tipMsg").text("已发布");
+					tds.eq(8).text("已发布");
 				}else{
 					//$("#tipMsg").text("");
 					alert("发布未成功");
@@ -103,6 +109,7 @@
 			<td>商品原价</td>
 			<td>商品成色</td>
 			<td>商品地址</td>
+			<td style="display: none;">用户id</td>
 			<td>
 				操作 
 				<!-- <a class="btn btn-info btn-sm active" href="insert-form.jsp" role="button">添加</a> -->

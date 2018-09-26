@@ -104,7 +104,6 @@
             <!-- 内容展示页 -->
 			<div>
 			<iframe id="iframe-page-content" src="${pageContext.request.contextPath}/dishomepageContent.do" width="100%"  frameborder="no" border="0" marginwidth="0"
-			
 			marginheight=" 0" scrolling="no" allowtransparency="yes"></iframe>
 			</div>
         </div>
