@@ -15,7 +15,7 @@ public interface ProductMapper {
 	 */
 	List<Product> queryProducts(@Param("proUserid") String proUserid);
 
-	/*
+	/* 
 	 * 获得主界面展示的所有商品
 	 */
 	List<ProductIndex> queryProductIndexs();
