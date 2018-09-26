@@ -6,7 +6,7 @@
 <mapper namespace="com.ycxy.dao.ProductMapper">
 	
 	<!-- 获得用户要发布的所有商品 -->
-	<select id="queryProducts" resultType="TransMap">
+	<select id="queryProducts" resultMap="TransMap">
 		select * from product where proUserid=#{proUserid}
 	</select>
 	
@@ -20,12 +20,19 @@
 		<result property="proUserid" column="proUserid"/>
 		<result property="tranStateid" column="tranStateid"/>
 		
-		<association property="tranState" select="queryTranState" column="id"></association>
+		<association property="tranState" select="queryTranState" column="tranStateid"></association>
 	</resultMap>
 	
 	<select id="queryTranState" resultType="com.ycxy.model.TranState">
 		select * from transtate where id=#{tranStateid}
 	</select>
+	
+	<!-- 更新商品发布状态：1 未发布 ，2 已发布 -->
+	<update id="updataProduct">
+		update product 
+		set tranStateid=#{tranStateid}
+		where id=#{id}
+	</update>
 	
 	<!-- 获得主界面展示的所有商品 -->
 	<select id="queryProductIndexs" resultType="com.ycxy.model.ProductIndex">

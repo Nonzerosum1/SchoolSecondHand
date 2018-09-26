@@ -30,14 +30,17 @@
 		var proCondition = tds.eq(4).text();
 		var proPicsrc = tds.eq(5).text();
 		var proUserid = tds.eq(6).text();
-		
+		var tranStateid = 2;
+		var id = tds.eq(9).text();
 		var params = {
 				proName : proName,
 				proSellprice : proSellprice,
 				proCostprice : proCostprice,
 				proCondition : proCondition,
 				proPicsrc : proPicsrc,
-				proUserid : proUserid
+				proUserid : proUserid,
+				tranStateid : tranStateid,
+				id : id
 		}
 		$.ajax({
 			type : "post",
@@ -118,6 +121,8 @@
 				</button>
 			</td>
 			<td>发布状态</td>
+			<td style="display: none;">商品id</td>
+			<td style="display: none;">商品发布状态id</td>
 	</tr>
 	</thead>
 	
@@ -147,7 +152,9 @@
 				 <button type="button" class="btn btn-info btn-sm" id="transtionBtn">发布</button>
 				  -->
 			</td>
-			<td id="tipMsg" style="font-size: 12px; color: green;">未发布</td>
+			<td id="tipMsg" style="font-size: 12px; color: green;">${product.tranState.state }</td>
+			<td id="id" style="display: none;">${product.id }</td>
+			<td id="tranStateid" style="display: none;">${product.tranStateid }</td>
 		</tr>
 	</c:forEach>
 	</table>

@@ -70,8 +70,8 @@ public class ProductC {
 	public ModelAndView getProductIndex() {
 		List<ProductIndex> productIndexs = service.queryProductIndexs();
 		List<TranstionProduct> transtionProducts = service2.queryTranstionProducts();
-		//System.out.println("productIndexs=" + productIndexs);
-		//System.out.println("transtionProducts=" + transtionProducts);
+		// System.out.println("productIndexs=" + productIndexs);
+		// System.out.println("transtionProducts=" + transtionProducts);
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("productIndexs", productIndexs);
 		mv.addObject("transtionProducts", transtionProducts);
@@ -116,7 +116,7 @@ public class ProductC {
 	public ModelAndView getUserListProducts(@RequestParam(name = "tpuserid") String tpuserid) {
 		System.out.println("tpUserid=" + tpuserid);
 		List<TranstionProduct> productsBytpUserids = service2.queryTranstionProductsBytpUserid(tpuserid);
-		//System.out.println("productsBytpUserids=" + productsBytpUserids);
+		// System.out.println("productsBytpUserids=" + productsBytpUserids);
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("productsBytpUserids", productsBytpUserids);
 		mv.setViewName("/repository-products");
@@ -169,16 +169,22 @@ public class ProductC {
 			@RequestParam(name = "proCostprice") String proCostprice,
 			@RequestParam(name = "proCondition") String proCondition,
 			@RequestParam(name = "proPicsrc") String proPicsrc, @RequestParam(name = "proUserid") String proUserid,
+			@RequestParam(name = "tranStateid") String tranStateid, @RequestParam(name = "id") String id,
 			HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		System.out.println("proName="+proName+" proSellprice="+proSellprice);
+		System.out.println("proName=" + proName + " proSellprice=" + proSellprice + "tranStateid=" + tranStateid);
 		int result = service2.insertTranstionProduct(proName, proSellprice, proCostprice, proCondition, proPicsrc,
 				proUserid);
+		int result2 = service.updataProduct(tranStateid, id);
 		StringBuilder json = new StringBuilder();
 		resp.setContentType("text/html;charset=utf-8");
 		PrintWriter out = resp.getWriter();
 		if (result > 0) {
-			json.append("{\"success\":true}");
-		} else {
+			if (result2 > 0) {
+				json.append("{\"success\":true}");
+			}else {
+				json.append("{\"success\":false}");
+			}
+ 		} else {
 			json.append("{\"success\":false}");
 		}
 		out.print(json);
