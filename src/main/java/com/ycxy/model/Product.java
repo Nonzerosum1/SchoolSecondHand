@@ -22,6 +22,26 @@ public class Product {
 	private String proPicsrc;
 	// 用户id
 	private String proUserid;
+	//发布状态id
+	private String tranStateid;
+	
+	private TranState tranState;
+
+	public String getTranStateid() {
+		return tranStateid;
+	}
+
+	public void setTranStateid(String tranStateid) {
+		this.tranStateid = tranStateid;
+	}
+
+	public TranState getTranState() {
+		return tranState;
+	}
+
+	public void setTranState(TranState tranState) {
+		this.tranState = tranState;
+	}
 
 	public String getId() {
 		return id;
@@ -83,7 +103,9 @@ public class Product {
 	public String toString() {
 		return "Product [id=" + id + ", proName=" + proName + ", proSellprice=" + proSellprice + ", proCostprice="
 				+ proCostprice + ", proCondition=" + proCondition + ", proPicsrc=" + proPicsrc + ", proUserid="
-				+ proUserid + "]";
+				+ proUserid + ", tranStateid=" + tranStateid + ", tranState=" + tranState + "]";
 	}
+
+	
 
 }

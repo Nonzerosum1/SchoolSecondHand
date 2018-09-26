@@ -6,8 +6,25 @@
 <mapper namespace="com.ycxy.dao.ProductMapper">
 	
 	<!-- 获得用户要发布的所有商品 -->
-	<select id="queryProducts" resultType="com.ycxy.model.Product">
+	<select id="queryProducts" resultType="TransMap">
 		select * from product where proUserid=#{proUserid}
+	</select>
+	
+	<resultMap type="com.ycxy.model.Product" id="TransMap">
+		<result property="id" column="id"/>
+		<result property="proName" column="proName"/>
+		<result property="proSellprice" column="proSellprice"/>
+		<result property="proCostprice" column="proCostprice"/>
+		<result property="proCondition" column="proCondition"/>
+		<result property="proPicsrc" column="proPicsrc"/>
+		<result property="proUserid" column="proUserid"/>
+		<result property="tranStateid" column="tranStateid"/>
+		
+		<association property="tranState" select="queryTranState" column="id"></association>
+	</resultMap>
+	
+	<select id="queryTranState" resultType="com.ycxy.model.TranState">
+		select * from transtate where id=#{tranStateid}
 	</select>
 	
 	<!-- 获得主界面展示的所有商品 -->
