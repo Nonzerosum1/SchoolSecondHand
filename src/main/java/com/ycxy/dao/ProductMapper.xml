@@ -38,4 +38,28 @@
 	<select id="queryProductIndexs" resultType="com.ycxy.model.ProductIndex">
 		select * from productindex
 	</select>
+	
+
+    <!-- 物品表操作product***************************************************** -->
+	
+	<insert id="insertProduct" useGeneratedKeys="true" keyProperty="id">
+		insert into product values
+		(0,#{proName},#{proSellprice},#{proCostprice},#{proCondition},#{proPicsrc},#{proUserid},#{tranStateid})
+	</insert>
+	
+	<delete id="deleteProduct">
+		delete from transtionProduct where id=#{id}
+	</delete>	
+	
+	<select id="queryProduct" resultType="com.ycxy.model.TranstionProduct">
+		select * from transtionProduct where
+		id=#{id}
+	</select>
+	
+	<update id="updateProduct">
+		update transtionProduct
+		set
+		tpname=#{tpnamee},tpsellprice=#{tpsellprice},tpcostprice=#{tpcostprice},tpcondition=#{tpcondition},tppicsrc=#{tppicsrc},tpuserid=#{tpuserid}
+		where id=#{id}
+	</update>
 </mapper>

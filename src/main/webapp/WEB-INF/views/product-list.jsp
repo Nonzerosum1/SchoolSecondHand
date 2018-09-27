@@ -115,10 +115,7 @@
 			<td style="display: none;">用户id</td>
 			<td>
 				操作 
-				<!-- <a class="btn btn-info btn-sm active" href="insert-form.jsp" role="button">添加</a> -->
-				<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">
-				  添加
-				</button>
+				 <a class="btn btn-info btn-sm active" href="getInsertForm.do" role="button">添加</a>	
 			</td>
 			<td>发布状态</td>
 			<td style="display: none;">商品id</td>

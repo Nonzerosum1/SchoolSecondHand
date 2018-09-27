@@ -46,7 +46,7 @@
 			<td>${productsBytpUserid.tpPicsrc }</td>
 			<td>
 				<a class="btn btn-primary btn-sm active" href="getUpdateForm.do?id=${productsBytpUserid.id }" role="button">修改</a>&nbsp;
-				<a class="btn btn-danger btn-sm active" href="deleteProduct.do?id=${productsBytpUserid.id }" role="button">删除</a>
+				<a class="btn btn-danger btn-sm active" href="deleteProduct.do?id=${productsBytpUserid.id }" role="button">下架</a>
 			</td>
 		</tr>
 	</c:forEach>

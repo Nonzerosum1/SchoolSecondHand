@@ -189,4 +189,74 @@ public class ProductC {
 		}
 		out.print(json);
 	}
+	/***********************************************************************************************************************/
+	/** @author xyb 通过getInsertForm跳转至insert-form.jsp添加界面 */
+	@RequestMapping("/getInsertForm.do")
+	public ModelAndView getInsertForm() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/insert-form");
+		return mv;
+	}
+	/** @author xyb 添加物品操作 */
+	@RequestMapping("/insertProduct.do")
+	public ModelAndView insertProduct(Product product) {
+		System.out.println("insertProduct_C:" + product);
+		int result = service.insertProduct(product);
+		ModelAndView mv = new ModelAndView();
+		
+		if (result > 0) {
+			mv.setViewName("redirect:/queryProducts.do?proUserid=1");
+		} else {
+			mv.setViewName("/fail");
+		}
+		return mv;
+	}
+	
+	/***************************/
+	/** @author xyb 删除物品操作 */
+	@RequestMapping("/deleteProduct.do")
+	public ModelAndView deleteProduct(String id) {
+		System.out.println(id);
+
+		int result = service.deleteProduct(id);
+
+		ModelAndView mv = new ModelAndView();
+		if (result > 0) {
+			mv.setViewName("redirect:/getProductIndex.do");
+		} else {
+			mv.setViewName("/fail");
+		}
+
+		return mv;
+	}
+	/******************************/
+	/** @author xyb 更新物品前操作 */
+	@RequestMapping("/getUpdateForm.do")
+	public ModelAndView getUpdateForm(String id) {
+		System.out.println("getUpdateForm:" + id);
+		TranstionProduct transtionproduct = service.queryProduct(id);
+		System.out.println("transtionproduct:"+transtionproduct);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("transtionproduct", transtionproduct);
+		mv.setViewName("/update-form");
+		return mv;
+	}
+
+	/** @author xyb 更新物品操作 */
+	@RequestMapping("/updateProduct.do")
+	public ModelAndView updateProduct(TranstionProduct transtionproduct) {
+         System.out.println("ok");
+		System.out.println("updateProduct:" + transtionproduct);
+		int result = service.updateProduct(transtionproduct);
+
+		ModelAndView mv = new ModelAndView();
+		if (result > 0) {
+			mv.setViewName("redirect:/queryProducts.do");
+		} else {
+			mv.setViewName("/fail");
+		}
+
+		return mv;
+	}
+	
 }

@@ -30,7 +30,7 @@
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://127.0.0.1:3306/db_product?characterEncoding=utf8"/>
         <property name="username" value="root"></property>
-        <property name="password" value="123"></property>	
+        <property name="password" value="123456"></property>	
 	</bean>	
 	
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" p:dataSource-ref="dataSource" />
