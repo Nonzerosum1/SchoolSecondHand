@@ -205,7 +205,7 @@ public class ProductC {
 		ModelAndView mv = new ModelAndView();
 		
 		if (result > 0) {
-			mv.setViewName("redirect:/queryProducts.do?proUserid=1");
+			mv.setViewName("/success");
 		} else {
 			mv.setViewName("/fail");
 		}
@@ -222,7 +222,7 @@ public class ProductC {
 
 		ModelAndView mv = new ModelAndView();
 		if (result > 0) {
-			mv.setViewName("redirect:/getProductIndex.do");
+			mv.setViewName("/success");
 		} else {
 			mv.setViewName("/fail");
 		}
